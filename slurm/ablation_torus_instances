@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name ablation_k_cut_preprocessing
 #SBATCH --array=1-5
-#SBATCH --partition=intelsr_short
-#SBATCH --time=01:00:00
+#SBATCH --partition=intelsr_long
+#SBATCH --time=72:00:00
 #SBATCH --gpus=0
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
