@@ -1,0 +1,9 @@
+[submodule "extern/googletest"]
+	path = extern/googletest
+	url = https://github.com/google/googletest.git
+[submodule "extern/networkit"]
+	path = extern/networkit
+	url = https://github.com/networkit/networkit.git
+[submodule "extern/ogdf"]
+	path = extern/ogdf
+	url = https://github.com/ogdf/ogdf.git

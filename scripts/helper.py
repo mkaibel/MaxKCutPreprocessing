@@ -1,0 +1,3 @@
+from plotting_scripts import number_solved_instances_by_fap
+
+number_solved_instances_by_fap.run()

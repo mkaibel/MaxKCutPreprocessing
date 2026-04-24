@@ -1,0 +1,34 @@
+# ignore all build files
+build/*
+builds/*
+build_debug/*
+build_release/*
+cmake-build-*
+instances/*
+aux/*
+output/*
+plots/*
+logs/*
+
+
+# ignore cached files and simiar things
+.cache/*
+.idea
+.venv
+
+# ignore logs and similar things
+.gdb_history
+status.cache
+validation.cache
+*pycache*
+*.log
+perf*
+
+# external files (helpful for file pickers in some editors)
+extern/*
+
+# test files
+slurm-*
+test.txt
+output.txt
+

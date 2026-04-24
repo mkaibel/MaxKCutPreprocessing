@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH --partition=intelsr_devel
+#SBATCH --time=1:00:00
+#SBATCH --gpus=0
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=96
+#SBATCH --exclusive
+#SBATCH --array=1-1
+
+module load Gurobi
+
+SCRIPT_DIR="slurm"
+source "$SCRIPT_DIR/configs.sh"
+
+export OMP_NUM_THREADS=96
+
+inst="CELAR_11.snap"
+kval=12
+confIndex=${SLURM_ARRAY_TASK_ID}
+confIndex=$((confIndex-1))
+seed=3
+
+echo "Running ./build/benchmark -i instances/instances_clean/$inst -o output.txt -k $kval -d 1 -s $seed -t 3500"
+./build/benchmark -i instances/instances_clean/$inst -o output.txt -k $kval -d 1 -s $seed -t 1800

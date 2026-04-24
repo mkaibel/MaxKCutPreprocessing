@@ -1,0 +1,8 @@
+#!/bin/bash
+
+module load Gurobi
+module load CMake
+
+mkdir -p build_debug
+cmake -B build_debug -D CMAKE_BUILD_TYPE=Debug
+cmake --build build_debug -j 8

@@ -1,0 +1,94 @@
+# Bugs to Fix
+
+# TODO
+- Improve ILP solver
+  - Add cutting Planes
+    - General Cliques (done)
+    - Wheels (done)
+    - bicycle wheels (done)
+    - Shifted column for assignment model (done)
+    - Hypermetric inequalities (by Rao) (partially)
+      - Maybe start with the -1, 1 ones where 1 vertex has -1 (done)
+    - Chord-Cycle-Inequalities (special case of clique-web-inequalities)
+      - Figure out if still facet defining for mkc (are facet defining for maximum cut with k >= n)
+      - Read A. Caprara and M. Fischetti, {0, 1/2 }-Chv´atal-Gomory cuts for poly-time algorithm
+    - Triangle and Chordless Cycle Inequalities (done)
+    - Cycle-Assignment inequalities (by Rao)
+  - Improve lazy heuristic for sparse pairing model
+    - In integer case can be checked per edge in O(1) with O(n+m) preprocessing (by just labelling connected components)
+    - Consider not adding all violated constraints every time
+- Add positive triangle rule to constraint generator
+- Optimize sortLexicographically for partitions (can be done with O(k) extra space instead of O(n))
+
+# DONE
+- Fix offset computation bug that occurs on CELAR_01 k = 8
+  - Can't reproduce at all, maybe I was hallucinating?
+- Fix compiler warnings
+- Expand instance etc for heuristic benchmark, probably only do G files on heuristic set
+  - Needs instances that are not unit weight
+    - Maybe just take network graphs and randomize edge weights in some range?
+      - Maintains interesting structure
+      - Not based on real applications
+- Add plotting for ablation study and heuristic study
+- Rerun all experiments on Marvin with increased time limit
+- Remove a lot of debug prints
+- Maybe solve small graphs (< 30 nodes?) to optimality in preprocessing?
+  - Could help for heuristics (small graphs don't need to be heuristically approached) and makes comparison more fair w.r.t. SPQR-decomposition, as SPQR solves graphs that other rules may separate first, making them not applicable
+- Add OpenMP as an explicit dependency to CMakeFile
+- Add TLC with one side getting solved to config for stats and ablation study
+- Add explicit handling for case that extra constraints make model infeasible
+- Change order in which kernels are solved so each kernel gets a bit of time
+  - Currently on some instances we can't solve the primal and dual bounds get bricked because some small, easy instance doesn't get enough solving time
+- Improve TLC splitter
+  - Figure out how to profit of separators where one side is small and can be solved to optimality quickly
+- Make the temporary node vector a passable argument for getInducedSubgraph so it isn't created every time
+- Add primal heuristic to ILP-solver
+- Benchmark on rudy-generated instances
+- Write batch scripts for stats and heuristic run for Marvin
+- Clean up instance lists in batch scripts
+- Set up heuristic benchmark
+  - Use multiple heuristics in parallel (as preprocesing also uses parallelism)?
+  - How to deal with multiple graphs? Allot some time for each of them (proportional to size or maybe total edge weight)?
+- Greedy heuristic now uses parallelism
+- Add random contracting of low degree vertices to avoid finding a lot of 1 vertex splits in TLC-finder
+- Clean up plotting script styles etc
+- Expand stats benchmark to also cover ablation study
+- Set up ablation study
+- Modify maxKCutSolver so the environment is loaded once into a global variable
+- Fix bug with offset computation in preprocessing (occurs on bio-DM-LC.snap, k = 3, full preprocessing)
+- Figure out how to find promising cutsets for two-layer-connector faster, currently takes O((n + m)log(n)) time even when it immediately finds a cut and separates
+  - Maybe run a bit longer to find more cuts?
+  - Very parallelizable
+  - Current FastCut implementation has bug where it does unnecessarily large copies of graphs
+    - Fixing would require sampling based on weighted distribution
+- Figure out how to deal with duplicate edges
+  - Just sum up their weights?
+- Figure out how to do onw-opt faster, currently takes O(n) per one swap
+  - Maybe just do every improvement step as soon as it is seen?
+- Add solver config or comparable to enable/disable individual cutting planes
+  - Benchmark which cutting planes help the most
+- Add a timer check in way more spots for local search optimization
+- Fix bug with wheel cutting planes
+- Implemented Cutting Planes
+  - 2-Partition (not actually useful for max k cut)
+- Patch solver so cutting planes work in tandem with extra constraints
+  - Also fixes bug with SPQR-Tree-Thing no longer working
+- Add plotting of scripts (partially done)
+- Implement returning bounds, even when solver doesn't find optimum
+- Add more instances to the instance downloader
+- Implement usage of seeds properly
+- Figure out what to do with the thread number
+- Change it so graphs with no vertices or edges aren't queued as kernel graphs
+- Implement SPQR-Tree
+- Set up system to mark whole graph rules as available again
+- Decide: Marking rules as available in the reduction framework itself or in the queued graph insert/delete functions
+- Setup benchmarking via simexpal
+- Fix graph reading
+- Implement negative dominating edge finder (vertex based)
+- Implement similar vertices
+- Implement simple clique rules
+- Implement slightly advanced clique finder
+- Implement Two-Layer finder
+- Fix bug with time limits, which occurs on ./build/benchmark -i instances/instances_clean/bio-diseasome.snap -o output/test.txt -c -d -k 3 (laptop)
+
+

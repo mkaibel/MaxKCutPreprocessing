@@ -1,0 +1,32 @@
+#!/bin/bash
+
+SCRIPT_DIR="slurm"
+source "$SCRIPT_DIR/configs.sh"
+
+print_instset () {
+  local name="$1"
+  shift
+  local arr=("$@")
+
+  echo -n "$name = [ "
+  for inst in "${arr[@]}"; do
+    echo -n "'$inst', "
+  done
+  echo -n "]"
+  echo ""
+  echo ""
+}
+
+print_instset "small_instances" "${instances_small[@]}"
+print_instset "medium_instances" "${instances_medium[@]}"
+print_instset "large_instances" "${instances_large[@]}"
+print_instset "fap_instances" "${instances_fap[@]}"
+
+echo -n "physics_instances = [ "
+for i in "${gset_indices[@]}"; do
+  echo -n "'G$i.snap', "
+done
+echo -n "]"
+
+echo ""
+echo ""

@@ -1,0 +1,4 @@
+boto3==1.42.69
+pip==24.3.1
+seaborn==0.13.2
+simexpal==1.1

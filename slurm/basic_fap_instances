@@ -1,0 +1,36 @@
+#!/bin/bash
+#SBATCH --job-name benchmark_k_cut_preprocessing
+#SBATCH --array=1-5
+#SBATCH --partition=intelsr_medium
+#SBATCH --time=24:00:00
+#SBATCH --gpus=0
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=96
+#SBATCH --exclusive
+#SBATCH --output=logs/k_cut_preprocessing/benchmark_fap_%A_%a.out
+#SBATCH --error=logs/k_cut_preprocessing/benchmark_fap_%A_%a.err
+
+module load Gurobi
+
+export OMP_NUM_THREADS=96
+
+SCRIPT_DIR="slurm"
+source "$SCRIPT_DIR/configs.sh"
+
+i=${SLURM_ARRAY_TASK_ID}
+seed=$((i-1))
+
+for inst in "${instances_fap[@]}"; do
+  for kval in "${k[@]}"; do
+    for presol in "${basic_presolve[@]}"; do
+      for constraint in "${basic_constraints[@]}"; do
+        if [ ! -e output/basic_"$inst"_"$kval"_"$presol"_"$constraint"_"$seed".txt ]; then
+          touch output/basic_"$inst"_"$kval"_"$presol"_"$constraint"_"$seed".txt
+          echo "Running ./build/benchmark -i instances/instances_clean/$inst -o output/basic_"$inst"_"$kval"_"$presol"_"$constraint"_"$seed".txt -k $kval -d $presol $constraint -s $seed -t 1800"
+          ./build/benchmark -i instances/instances_clean/$inst -o output/basic_"$inst"_"$kval"_"$presol"_"$constraint"_"$seed".txt -k $kval -d $presol $constraint -s $seed -t 1800
+        fi
+      done
+    done
+  done
+done
