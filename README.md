@@ -7,6 +7,7 @@ The code relies on Gurobi Optimizer being installed. For a tutorial to install G
 
 ### Further Dependencies
 - The project uses GoogleTest and NetworKit via git submodules. To initialise them call ```git submodule update --init --recursive```.
+  - If this throws a "direct fetching of that commit failed" error, try ```git submodule update --force --recursive --init --remote``` to force git to get the newest commit of all submodules.
 - Some of the python scripts also have dependencies. Create a virtual enviroment and run ```pip install -r requirements.txt``` to install the python requirements.
 
 ### Licensing
