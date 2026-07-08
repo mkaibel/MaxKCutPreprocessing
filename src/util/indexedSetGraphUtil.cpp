@@ -4,6 +4,8 @@
 
 #include "util/indexedSetGraphUtil.hpp"
 
+#include <deque>
+
 void intersectIndexedSetWithNeighbourhood(IndexedSet& set, NetworKit::node v, const NetworKit::Graph& g)
 {
     std::deque<unsigned> inIntersection;

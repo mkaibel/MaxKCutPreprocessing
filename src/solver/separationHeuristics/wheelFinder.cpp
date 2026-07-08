@@ -4,6 +4,8 @@
 
 #include "solver/separationHeuristics/wheelFinder.hpp"
 
+#include <deque>
+
 #include "util/indexedSet.hpp"
 
 namespace mkcp
