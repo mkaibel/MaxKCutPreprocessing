@@ -1,5 +1,15 @@
 # Maximum-k-Cut Preprocessing
-TODO: Make this a nicer ReadMe
+This repository contains code for optimality-preserving preprocessing for max-k-cut.
+
+If you got this project from a zip-file run
+```bash
+git init
+git add .
+git remote add origin git@github.com:mkaibel/MaxKCutPreprocessing.git
+git remote update
+git checkout main
+```
+to properly initialize the repo.
 
 ## External Dependencies
 ### GUROBI
